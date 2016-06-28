@@ -504,8 +504,12 @@ typedef void (^OnFindedItem)(NSString* fullPath, BOOL isDirectory, BOOL* skipThi
 
 
 +(NSArray*)lprojDirectoriesWithProjectSetting:(StringSetting*)setting project:(NSString*)project{
-    NSMutableArray *bundles = [NSMutableArray array];
     NSString *path = [self explandRootPathMacro:[setting searchDirectory] projectPath:project];
+    return [self lprojDirectoriesWithPath:path fileName:setting.searchTableName];
+}
+
++(NSArray*)lprojDirectoriesWithPath:(NSString*)path fileName:(NSString*)fileName{
+    NSMutableArray *bundles = [NSMutableArray array];
     NSArray* array = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
     for(int i = 0; i<[array count]; i++){
         NSString *fullPath = [path stringByAppendingPathComponent:array[i]];
@@ -513,11 +517,13 @@ typedef void (^OnFindedItem)(NSString* fullPath, BOOL isDirectory, BOOL* skipThi
         NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
         if ([attr[NSFileType] isEqualTo:NSFileTypeDirectory]) {
             if ([@"lproj" isEqualToString:fullPath.pathExtension]) {
-                NSString *filePath = [fullPath stringByAppendingPathComponent:setting.searchTableName];
+                NSString *filePath = [fullPath stringByAppendingPathComponent:fileName];
                 BOOL isDir = NO;
                 if([[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDir] && !isDir){
                     [bundles addObject:fullPath];
                 }
+            } else {
+                [bundles addObjectsFromArray:[self lprojDirectoriesWithPath:fullPath fileName:fileName]];
             }
         }
     }
