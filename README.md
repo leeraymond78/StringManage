@@ -2,6 +2,8 @@
 
 A Xcode plugin for managing strings in your projects
 
+P.S. This version is enhanced base on Loongwoo's' version
+
 ![image](screenshots/1.png)
 
 ### What can StringManage do?
