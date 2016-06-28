@@ -649,7 +649,8 @@
     StringEditViewController* editViewController = (StringEditViewController*)controller;
     NSString *string1 = editViewController.textView.string;
     NSString *string2 = [string1 stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
-    [self changeWithKey:editViewController.key identifier:editViewController.identifier newValue:string2];
+    NSString *string3 = [string2 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    [self changeWithKey:editViewController.key identifier:editViewController.identifier newValue:string3];
 }
 
 #pragma mark - NSTableViewDelegate & NSTableViewDataSource
