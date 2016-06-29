@@ -208,7 +208,7 @@ static NSString * const kRegularExpressionPattern = @"^(\"([^/]\\S+.*)\"|([^/]\\
 }
 
 + (NSString*)_settingDirectory {
-    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString* settingDirectory = [(NSString*)[paths objectAtIndex:0] stringByAppendingPathComponent:@"StringManage"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:settingDirectory] == NO) {
         [[NSFileManager defaultManager] createDirectoryAtPath:settingDirectory  withIntermediateDirectories:YES attributes:nil error:NULL];

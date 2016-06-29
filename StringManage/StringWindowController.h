@@ -27,5 +27,6 @@ NSSearchFieldDelegate
              projectName:(NSString*)projectName;
 
 - (IBAction)refresh:(id)sender;
+- (IBAction)showPreferencesPanel:(id)sender;
 
 @end
