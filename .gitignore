@@ -1,1 +1,7 @@
 /DerivedData
+
+*.xcuserstate
+
+*.xcbkptlist
+
+xcuserdata
