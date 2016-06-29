@@ -102,9 +102,9 @@ static NSString * const kRegularExpressionPattern = @"^(\"([^/]\\S+.*)\"|([^/]\\
             if(![mutableString hasSuffix:@"\n"])
                 [mutableString appendFormat:@"\n"];
             if(projectSetting.language == StringLanguageSwift)
-                [mutableString appendFormat:@"%@=\"%@\";",action.key, action.value];
+                [mutableString appendFormat:@"%@ = \"%@\";",action.key, action.value];
             else
-                [mutableString appendFormat:@"\"%@\"=\"%@\";",action.key, action.value];
+                [mutableString appendFormat:@"\"%@\" = \"%@\";",action.key, action.value];
         }
     }
     //write to filepath
