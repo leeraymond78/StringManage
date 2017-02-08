@@ -37,6 +37,7 @@
 @property (weak) IBOutlet NSButton *showOnlyBtn;
 @property (weak) IBOutlet NSButton *untranslatedBtn;
 @property (weak) IBOutlet NSButton *unusedBtn;
+@property (weak) IBOutlet NSButton *removeAllBtn;
 @property (weak) IBOutlet NSTextField *toastLabel;
 
 @property (nonatomic, strong) NSMutableArray *stringArray;
@@ -61,6 +62,7 @@
 - (IBAction)saveAction:(id)sender;
 - (IBAction)searchAnswer:(id)sender;
 - (IBAction)checkAction:(id)sender;
+- (IBAction)removeAllAction:(id)sender;
 @end
 
 @implementation StringWindowController
@@ -486,6 +488,23 @@
     [_actionArray removeAllObjects];
     
     [self refresh:nil];
+}
+
+- (void)removeAllAction:(id)sender{
+    if (self.isChecking)
+        return;
+    for (StringModel *model in _stringArray) {
+        for(NSString *key in self.showArray){
+            ActionModel *action = [[ActionModel alloc]init];
+            action.actionType = ActionTypeRemove;
+            action.identifier = model.identifier;
+            action.key = key;
+            action.value = [self valueInRaw:key identifier:model.identifier];
+            [_actionArray addObject:action];
+            [_keyDict setObject:@(KeyTypeRemove) forKey:key];
+        }
+    }
+    [self searchAnswer:nil];
 }
 
 -(void)cellClicked:(id)sender {
